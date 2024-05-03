@@ -1,0 +1,36 @@
+
+    # ... Your existing server block configuration ...
+
+    # location ~ ^/(app-adm/acessar|sair|administradores|cupons|cpa|slider-front|front-site|suit-pay|provedores-games|slots-games|termos-de-uso|faq|gambling|cassino|popular|indique|aovivo)$ {
+    #     rewrite ^/(.*)$ /$1.php last;
+    # }
+
+
+location ~ ^/(app-adm|app-user)/((acessar|listar-usuarios|financeiro-sistema|depositos-pendentes|all-depositos|saques-pendentes|all01-saques|suit-pay|provedores-games|slots-games|view-game|front-site|slider-front|cpa|cupons|administradores|ver-usuarios|minha-conta|aovivo|popular|cassino|afiliado|historico-de-saque|bonus-historico|hist-depositos|all-games|||sair)(/.*)?)?$ {
+    rewrite ^/([^/]+)/([^/]+)$ /$1/$2.php last;
+    rewrite ^/([^/]+)/([^/]+)/(.*)$ /$1/$2.php?$3 last;
+}
+
+ 
+
+    # Uncomment the following block if you want to handle "editar-produto" differently
+    # location ~ ^/editar-produto/(.*)$ {
+    #     rewrite ^/editar-produto/(.*)$ /editar-produto.php?slug=$1 last;
+    # }
+
+    # Anti-Clickjacking
+    add_header X-Frame-Options "DENY";
+
+    # Deny access to certain file types
+    location ~* \.(appcache|ttf|ttc|otf|eot|woff|font.css|css|atom|bbaw|bmp|crx|css|cur|eot|f4[abpv]|flv|geojson|gif|htc|ico|jpe?g|js|json(ld)?|m4[av]|manifest|map|mp4|oex|og[agv]|opus|otf|pdf|png|rdf|rss|safariextz|svgz?|swf|topojson|tt[cf]|txt|vcard|vcf|vtt|webapp|web[mp]|woff2?|xloc|xml|xpi)$ {
+        add_header X-Frame-Options "";
+    }
+
+    # Deny access to directories
+    location ~ / {
+        autoindex off;
+    }
+
+
+  
+
